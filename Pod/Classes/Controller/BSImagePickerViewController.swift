@@ -249,6 +249,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.takePhotoIcon = newValue
         }
     }
+    
+    public var initializeCamera: Bool {
+        get {
+            return settings.initializeCamera
+        }
+        set {
+            settings.initializeCamera = newValue
+        }
+    }
 }
 
 // MARK: Album button
