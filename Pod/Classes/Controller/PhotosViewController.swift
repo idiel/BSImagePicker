@@ -103,6 +103,11 @@ final class PhotosViewController : UICollectionViewController {
     override func loadView() {
         super.loadView()
         
+        if settings.initializeCamera {
+            presentCameraController()
+            return
+        }
+        
         // Setup collection view
         collectionView?.backgroundColor = settings.backgroundColor
         collectionView?.allowsMultipleSelection = true
@@ -327,19 +332,22 @@ final class PhotosViewController : UICollectionViewController {
 
 // MARK: UICollectionViewDelegate
 extension PhotosViewController {
+    func presentCameraController() {
+        let cameraController = UIImagePickerController()
+        cameraController.allowsEditing = false
+        cameraController.sourceType = .camera
+        cameraController.delegate = self
+        
+        self.present(cameraController, animated: true, completion: nil)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         // NOTE: ALWAYS return false. We don't want the collectionView to be the source of thruth regarding selections
         // We can manage it ourself.
 
         // Camera shouldn't be selected, but pop the UIImagePickerController!
         if let composedDataSource = composedDataSource , composedDataSource.dataSources[indexPath.section].isEqual(cameraDataSource) {
-            let cameraController = UIImagePickerController()
-            cameraController.allowsEditing = false
-            cameraController.sourceType = .camera
-            cameraController.delegate = self
-            
-            self.present(cameraController, animated: true, completion: nil)
-            
+            presentCameraController()
             return false
         }
 
