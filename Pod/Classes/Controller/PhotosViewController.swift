@@ -104,7 +104,7 @@ final class PhotosViewController : UICollectionViewController {
         super.loadView()
         
         if settings.initializeCamera {
-            presentCameraController()
+            presentCameraController(animated: false)
             return
         }
         
@@ -332,13 +332,13 @@ final class PhotosViewController : UICollectionViewController {
 
 // MARK: UICollectionViewDelegate
 extension PhotosViewController {
-    func presentCameraController() {
+    func presentCameraController(animated: Bool = true) {
         let cameraController = UIImagePickerController()
         cameraController.allowsEditing = false
         cameraController.sourceType = .camera
         cameraController.delegate = self
         
-        self.present(cameraController, animated: true, completion: nil)
+        self.present(cameraController, animated: animated, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
