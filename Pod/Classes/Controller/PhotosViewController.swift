@@ -104,6 +104,7 @@ final class PhotosViewController : UICollectionViewController {
         super.loadView()
         
         if settings.initializeCamera {
+            navigationController?.isNavigationBarHidden = true 
             presentCameraController(animated: false)
             return
         }
