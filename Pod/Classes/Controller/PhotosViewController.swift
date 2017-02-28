@@ -514,10 +514,11 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if settings.initializeCamera, let cancelBarButton = cancelBarButton {
+            picker.dismiss(animated: false, completion: nil)
             cancelButtonPressed(cancelBarButton)
         } else {
             picker.dismiss(animated: true, completion: nil)
-        }   
+        }
     }
 }
 
